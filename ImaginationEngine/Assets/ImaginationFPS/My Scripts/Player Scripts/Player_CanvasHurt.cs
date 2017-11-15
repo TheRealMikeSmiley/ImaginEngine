@@ -7,7 +7,7 @@ namespace ImaginationEngine {
 
 		public GameObject hurtCanvas;
 		private Player_Master playerMaster;
-		private float secondsTillHide = 2; // how long hurt image will stay - currently 2 seconds
+		public float secondsTillHide = 2; // how long hurt image will stay - currently 2 seconds
 
 		void OnEnable() {
 			SetInitialReferences ();
