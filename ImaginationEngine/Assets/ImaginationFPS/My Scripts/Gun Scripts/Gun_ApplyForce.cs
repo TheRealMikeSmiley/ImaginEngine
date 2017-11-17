@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * Adds force to the object being shot at
+ * User can adjust force in the inspector
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Gun_ApplyForce : MonoBehaviour {
 

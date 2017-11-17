@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * Check for Input
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Gun_StandardInput : MonoBehaviour {
 
@@ -35,50 +41,54 @@ namespace ImaginationEngine {
 		}
 
 		void CheckIfWeaponShouldAttack() {
-			if (Time.time > nextAttack && Time.timeScale > 0 && myTransform.root.CompareTag (GameManager_References._playerTag)) {
-				if (isAutomatic && !isBurstFireActive) {
-					if (Input.GetButton (attackButtonName)) {
+			if (Time.time > nextAttack && Time.timeScale > 0 && myTransform.root.CompareTag (GameManager_References._playerTag)) { //check if weapon is on player 
+				if (isAutomatic && !isBurstFireActive) { //check if automatic, burst fire not enabled
+					if (Input.GetButton (attackButtonName)) { //can hold button down to keep shooting
 						//Debug.Log ("Full Auto");
 						AttemptAttack ();
 					}
-				} else if (isAutomatic && isBurstFireActive) {
-					if (Input.GetButtonDown (attackButtonName)) {
+				} else if (isAutomatic && isBurstFireActive) { //check if automatic, and burst fire enabled
+					if (Input.GetButtonDown (attackButtonName)) { // must press button each time to shoot
 						//Debug.Log ("Burst");
 						StartCoroutine (RunBurstFire ());
 					}
-				} else if (!isAutomatic) {
-					if (Input.GetButtonDown (attackButtonName)) {
+				} else if (!isAutomatic) { //check if not automatic
+					if (Input.GetButtonDown (attackButtonName)) { //must press button each time to shoot
 						AttemptAttack ();
 					}
 				}
 			}
 		}
 
+		//Check attack rate, ammo amount, and if loaded
 		void AttemptAttack(){
 			nextAttack = Time.time + attackRate;
 
 			if (gunMaster.isGunLoaded) {
 				//Debug.Log ("Shooting");
-				gunMaster.CallEventPlayerInput ();
+				gunMaster.CallEventPlayerInput (); //gun passes checks
 			} else {
-				gunMaster.CallEventGunNotUsable ();
+				gunMaster.CallEventGunNotUsable (); //if gun is not loaded, can add clicking sound effect here
 			}
 		}
 
+		//Check for reload button press
 		void CheckForReloadRequest(){
 			if (Input.GetButtonDown (reloadButtonName) && Time.timeScale > 0 && myTransform.root.CompareTag (GameManager_References._playerTag)) {
 				gunMaster.CallEventRequestReload ();
 			}
 		}
 
+		//Check if burst fire button is pressed
 		void CheckForBurstFireToggle(){
 			if (Input.GetButtonDown (burstFireButtonName) && Time.timeScale > 0 && myTransform.root.CompareTag (GameManager_References._playerTag)) {
 				//Debug.Log ("Burst Fire Toggled");
-				isBurstFireActive = !isBurstFireActive;
+				isBurstFireActive = !isBurstFireActive; 
 				gunMaster.CallEventToggleBurstFire ();
 			}
 		}
 
+		//Shoot burst of three shots after one click
 		IEnumerator RunBurstFire(){
 			AttemptAttack ();
 			yield return new WaitForSeconds (attackRate);

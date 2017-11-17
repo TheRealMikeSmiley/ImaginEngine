@@ -9,9 +9,9 @@ namespace ImaginationEngine {
 		private Transform myTransform;
 		private Transform camTransform;
 		private RaycastHit hit;
-		public float range = 400;
-		private float offsetFactor = 7;
-		private Vector3 startPosition;
+		public float range = 400; //set how far the gun can shoot
+		private float offsetFactor = 7; //give random point origin of raycast (depending on the speed of the player)
+		private Vector3 startPosition; //give random point origin of raycast (depending on the speed of the player)
 
 		void OnEnable() {
 			SetInitialReferences ();
@@ -27,21 +27,24 @@ namespace ImaginationEngine {
 		void SetInitialReferences() {
 			gunMaster = GetComponent<Gun_Master> ();
 			myTransform = transform;
-			camTransform = myTransform.parent;
+			camTransform = myTransform.parent; //Set the camera location, disabled until the player equips object
 		}
 
+		//raycast shot from gun, raycast will either hit default object or enemy and return the location
 		void OpenFire() {
 			//Debug.Log ("OpenFire called");
 			if (Physics.Raycast (camTransform.TransformPoint (startPosition), camTransform.forward, out hit, range)) {
 				gunMaster.CallEventShotDefault (hit.point, hit.transform);
 
+				//Check if raycast has hit object with the enemy tag
 				if (hit.transform.CompareTag (GameManager_References._enemyTag)) {
-					//Debug.Log ("Shot Enemy");
+					//Debug.Log ("Shot Enemy"); //check if raycast is working
 					gunMaster.CallEventShotEnemy (hit.point, hit.transform);
 				}
 			}
 		}
 
+		//Sets the offset of the raycast depending on players speed
 		void SetStartOfShootingPosition(float playerSpeed) {
 			float offset = playerSpeed / offsetFactor;
 			startPosition = new Vector3 (Random.Range (-offset, offset), Random.Range (-offset, offset), 1);

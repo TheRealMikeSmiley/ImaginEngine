@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * This script will handle the dynamic crosshairs
+ * The variables have been set in the animator
+ * Depending on the player speed will dictate if crosshairs become smaller or larger
+ */ 
+
 namespace ImaginationEngine {
 	public class Gun_DynamicCrosshair : MonoBehaviour {
 
@@ -36,21 +43,23 @@ namespace ImaginationEngine {
 			SetPlaneDistanceOnDynamicCrosshairCanvas ();
 		}
 
+		//Check and save the players current speed
 		void CapturePlayerSpeed(){
 			if (Time.time > nextCaptureTime) {
-				nextCaptureTime = Time.time + captureInterval;
+				nextCaptureTime = Time.time + captureInterval; //set interval in script, change may not be required
 				playerSpeed = (playerTransform.position - lastPosition).magnitude / captureInterval;
 				lastPosition = playerTransform.position;
-				gunMaster.CallEventSpeedCaptured (playerSpeed);
+				gunMaster.CallEventSpeedCaptured (playerSpeed); //sets firing source at a difference location
 			}
 		}
 
+		//Compare captured speed to animator
 		void ApplySpeedToAnimation(){
 			if (crosshairAnimator != null) {
-				crosshairAnimator.SetFloat ("Speed", playerSpeed);
+				crosshairAnimator.SetFloat ("Speed", playerSpeed); //Speed named in animator
 			}
 		}
-
+			
 		void FindWeaponCamera(Transform transformToSearchThrough) {
 			if (transformToSearchThrough != null) {
 				if (transformToSearchThrough.name == weaponCameraName) {
@@ -63,7 +72,7 @@ namespace ImaginationEngine {
 				}
 			}
 		}
-
+			
 		void SetCameraOnDynamicCrosshairCanvas() {
 			if (canvasDynamicCrosshair != null && weaponCamera != null) {
 				canvasDynamicCrosshair.GetComponent<Canvas> ().renderMode = RenderMode.ScreenSpaceCamera;

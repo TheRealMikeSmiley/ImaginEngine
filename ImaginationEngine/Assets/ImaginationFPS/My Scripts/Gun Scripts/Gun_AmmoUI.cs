@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * 
+ * This will update the ammoUIcanvas for the player
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Gun_AmmoUI : MonoBehaviour {
 

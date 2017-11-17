@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * Animates the gun object when the shooting
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Gun_Animator : MonoBehaviour {
 
@@ -25,6 +31,7 @@ namespace ImaginationEngine {
 			}
 		}
 
+		//Animation set up in Animator, can change animation there
 		void PlayShootAnimation(){
 			if (myAnimator != null) {
 				myAnimator.SetTrigger ("Shoot");

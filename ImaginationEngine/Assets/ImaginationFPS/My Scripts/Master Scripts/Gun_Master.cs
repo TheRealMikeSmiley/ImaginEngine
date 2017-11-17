@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * Same as the other Master scripts, this will hold all the events associated with the gun object
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Gun_Master : MonoBehaviour {
 
@@ -55,7 +61,7 @@ namespace ImaginationEngine {
 			}
 		}
 
-		public void CallEventShotDefault(Vector3 hPos, Transform hTransform){
+		public void CallEventShotDefault(Vector3 hPos, Transform hTransform){ //Default is anything tagged Default eg. Walls
 			if (EventShotDefault != null) {
 				EventShotDefault (hPos, hTransform);
 			}

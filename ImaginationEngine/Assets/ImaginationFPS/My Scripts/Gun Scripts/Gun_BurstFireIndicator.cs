@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * This script adds an image to the ammo canvas if the secondary fire mode is on
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Gun_BurstFireIndicator : MonoBehaviour {
 

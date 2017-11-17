@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * Plays muzzle flash particle system when gun fires
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Gun_MuzzleFlash : MonoBehaviour {
 
@@ -21,6 +27,7 @@ namespace ImaginationEngine {
 			gunMaster = GetComponent<Gun_Master> ();
 		}
 
+		//check if muzzle is already flashing, if not - play
 		void PlayMuzzleFlash(){
 			if (muzzleFlash != null) {
 				muzzleFlash.Play ();

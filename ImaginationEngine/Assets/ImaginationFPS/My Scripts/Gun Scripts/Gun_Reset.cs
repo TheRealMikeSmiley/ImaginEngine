@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * This script fixes the issue with the gun not reset if the player reloads and then throws the gun
+ * If not attached, the gun won't reload since it is stuck in the reload state
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Gun_Reset : MonoBehaviour {
 

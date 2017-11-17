@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * This will instantiate the default or hit particle effect
+ * Default if an object with the default tag is hit
+ * Hit if an object with the enemy tag is hit
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Gun_HitEffects : MonoBehaviour {
 
@@ -26,7 +34,11 @@ namespace ImaginationEngine {
 
 		void SpawnDefaultHitEffect(Vector3 hitPosition, Transform hitTransform){
 			if (defaultHitEffect != null) {
-				Instantiate (defaultHitEffect, hitPosition, Quaternion.identity);
+				GameObject go = (GameObject)Instantiate (defaultHitEffect, hitPosition, Quaternion.identity);
+				if (hitTransform.gameObject.GetComponent <Renderer> () != null) {
+					go.GetComponent<ParticleSystemRenderer> ().material = hitTransform.gameObject.GetComponent<Renderer> ().material;
+				}
+				//Instantiate (defaultHitEffect, hitPosition, Quaternion.identity);
 			}
 		}
 
