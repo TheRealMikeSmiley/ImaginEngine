@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * Fixes issue with picking up items
+ * Instead of the item held in the same rotation as it was picked up, it will be held the same way no matter how it was picked up
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Item_SetRotation : MonoBehaviour {
 

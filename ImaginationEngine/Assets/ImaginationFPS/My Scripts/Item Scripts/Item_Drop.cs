@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * Enables player to drop an item, rather than throw
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Item_Drop : MonoBehaviour {
 

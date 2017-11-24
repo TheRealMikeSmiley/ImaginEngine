@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 
+ * Changes material of an item to transparent when picked up
+ * 		This way an item can be carried, but the player can still see through the object
+ * 
+ */ 
+
 namespace ImaginationEngine {
 	public class Item_Transparency : MonoBehaviour {
 
@@ -28,7 +35,7 @@ namespace ImaginationEngine {
 		void SetInitialReferences() {
 			itemMaster = GetComponent<Item_Master> ();
 		}
-
+			
 		void CaptureStartingMaterial() {
 			primaryMat = GetComponent<Renderer> ().material;
 		}
@@ -42,5 +49,3 @@ namespace ImaginationEngine {
 		}
 	}
 }
-
-

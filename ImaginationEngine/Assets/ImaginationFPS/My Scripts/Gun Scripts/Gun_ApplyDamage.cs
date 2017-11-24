@@ -17,7 +17,7 @@ namespace ImaginationEngine {
 		void OnEnable() {
 			SetInitialReferences ();
 			gunMaster.EventShotEnemy += ApplyDamage;
-			gunMaster.EventShotDefault += ApplyDamage;
+			gunMaster.EventShotDefault += ApplyDamage; //Allows other objects to receive damage
 		}
 
 		void OnDisable() {
@@ -32,6 +32,7 @@ namespace ImaginationEngine {
 
 		//Checks location of raycast, applies damage - in case of damage multipliers
 		void ApplyDamage(Vector3 hitPosition, Transform hitTransform){
+			//Changed apply damage, this way is more efficient and allows more than just enemies to receive damage
 			hitTransform.SendMessage ("ProcessDamage", damage, SendMessageOptions.DontRequireReceiver);
 		}
 	}
