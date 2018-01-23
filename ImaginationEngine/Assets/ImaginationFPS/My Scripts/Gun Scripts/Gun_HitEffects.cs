@@ -32,20 +32,17 @@ namespace ImaginationEngine {
 			gunMaster = GetComponent<Gun_Master> ();
 		}
 
-		void SpawnDefaultHitEffect(Vector3 hitPosition, Transform hitTransform){
+		void SpawnDefaultHitEffect(RaycastHit hitPosition, Transform hitTransform){
 			if (defaultHitEffect != null) {
-				GameObject go = (GameObject)Instantiate (defaultHitEffect, hitPosition, Quaternion.identity);
-				if (hitTransform.gameObject.GetComponent <Renderer> () != null) {
-					go.GetComponent<ParticleSystemRenderer> ().material = hitTransform.gameObject.GetComponent<Renderer> ().material;
-				}
-				//Instantiate (defaultHitEffect, hitPosition, Quaternion.identity);
+				Quaternion quatAngle = Quaternion.LookRotation (hitPosition.normal);
+				Instantiate (defaultHitEffect, hitPosition.point, quatAngle);
 			}
 		}
 
-		void SpawnEnemyHitEffect(Vector3 hitPosition, Transform hitTransform){
+		void SpawnEnemyHitEffect(RaycastHit hitPosition, Transform hitTransform){
 			if (enemyHitEffect != null) {
-				Instantiate (enemyHitEffect, hitPosition, Quaternion.identity);
-			}
+				Quaternion quatAngle = Quaternion.LookRotation (hitPosition.normal);
+				Instantiate (enemyHitEffect, hitPosition.point, quatAngle);			}
 		}
 	}
 }

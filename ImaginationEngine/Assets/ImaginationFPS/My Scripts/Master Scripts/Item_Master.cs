@@ -17,26 +17,34 @@ namespace ImaginationEngine {
 
 		public delegate void PickupActionEventHandler (Transform item);
 		public event PickupActionEventHandler EventPickupAction;
+
+		private bool isOnPlayer; 
 		
 		// Use this for initialization
 		void Start () {
 			SetInitialReferences ();
-		
+			CheckIfOnPlayer ();
 		}
 
 		public void CallEventObjectThrow() {
 			if (EventObjectThrow != null) {
 				EventObjectThrow ();
 			}
-			playerMaster.CallEventHandsEmpty (); //moved outside so inventory can update when item picked up
-			playerMaster.CallEventInventoryChanged ();
+			if (isOnPlayer) {
+				playerMaster.CallEventHandsEmpty (); //moved outside so inventory can update when item picked up
+				playerMaster.CallEventInventoryChanged ();
+				CheckIfOnPlayer ();
+			}
 		}
 
 		public void CallEventObjectPickup() {
 			if (EventObjectPickup != null) {
 				EventObjectPickup ();
 			}
-			playerMaster.CallEventInventoryChanged (); //moved outside so inventory can update when item picked up
+			if(!isOnPlayer) {
+				playerMaster.CallEventInventoryChanged (); //moved outside so inventory can update when item picked up
+				CheckIfOnPlayer();
+			}
 		}
 
 		public void CallEventPickupAction(Transform item) {
@@ -48,6 +56,14 @@ namespace ImaginationEngine {
 		void SetInitialReferences() {
 			if (GameManager_References._player != null) {
 				playerMaster = GameManager_References._player.GetComponent<Player_Master> ();
+			}
+		}
+
+		void CheckIfOnPlayer() {
+			if (transform.root == GameManager_References._player.transform) {
+				isOnPlayer = true;
+			} else {
+				isOnPlayer = false;
 			}
 		}
 	}

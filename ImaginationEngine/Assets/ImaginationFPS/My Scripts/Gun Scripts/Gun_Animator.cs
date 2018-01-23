@@ -17,10 +17,12 @@ namespace ImaginationEngine {
 		void OnEnable() {
 			SetInitialReferences ();
 			gunMaster.EventPlayerInput += PlayShootAnimation;
+			gunMaster.EventNpcInput += NpcPlayShootAnimation;
 		}
 
 		void OnDisable() {
 			gunMaster.EventPlayerInput -= PlayShootAnimation;
+			gunMaster.EventNpcInput -= NpcPlayShootAnimation;
 		}
 
 		void SetInitialReferences() {
@@ -36,6 +38,11 @@ namespace ImaginationEngine {
 			if (myAnimator != null) {
 				myAnimator.SetTrigger ("Shoot");
 			}
+		}
+
+		//For NPC
+		void NpcPlayShootAnimation(float dummy) {
+			PlayShootAnimation ();
 		}
 	}
 }

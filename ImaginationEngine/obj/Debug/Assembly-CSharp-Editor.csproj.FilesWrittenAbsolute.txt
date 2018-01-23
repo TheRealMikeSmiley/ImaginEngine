@@ -41,3 +41,16 @@
 /Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/Mono.Cecil.Mdb.dll
 /Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.dll
 /Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.xml
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/Assembly-UnityScript.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/UnityEngine.UIAutomation.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/UnityEditor.UIAutomation.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/UnityEditor.GoogleAudioSpatializer.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/UnityEngine.GoogleAudioSpatializer.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/UnityEditor.SpatialTracking.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/UnityEngine.SpatialTracking.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/UnityEngine.Purchasing.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/Unity.Cecil.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/Unity.Cecil.Pdb.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/Unity.Cecil.Mdb.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/UnityEngine.Advertisements.dll
+/Users/Smiles/UnityProjects/ImaginationEngine/Temp/bin/Debug/UnityEngine.StandardEvents.dll

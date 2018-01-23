@@ -25,6 +25,7 @@ namespace ImaginationEngine {
 			if (collision.gameObject != GameManager_References._player && meleeMaster.isInUse && Time.time > nextSwingTime) {
 				nextSwingTime = Time.time + meleeMaster.swingRate; //limits collision to once per swing, otherwise it could deal damage more than once per swing
 				collision.transform.SendMessage ("ProcessDamage", damage, SendMessageOptions.DontRequireReceiver);
+				collision.transform.root.SendMessage ("SetMyAttacker", transform.root, SendMessageOptions.DontRequireReceiver);
 				meleeMaster.CallEventHit (collision, collision.transform);
 			}
 		}

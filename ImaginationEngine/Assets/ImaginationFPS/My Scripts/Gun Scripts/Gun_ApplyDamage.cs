@@ -31,9 +31,11 @@ namespace ImaginationEngine {
 		}
 
 		//Checks location of raycast, applies damage - in case of damage multipliers
-		void ApplyDamage(Vector3 hitPosition, Transform hitTransform){
+		void ApplyDamage(RaycastHit hitPosition, Transform hitTransform){
 			//Changed apply damage, this way is more efficient and allows more than just enemies to receive damage
 			hitTransform.SendMessage ("ProcessDamage", damage, SendMessageOptions.DontRequireReceiver);
+			hitTransform.SendMessage ("CallEventPlayerHealthDeduction", damage, SendMessageOptions.DontRequireReceiver);
+			hitTransform.SendMessage ("SetMyAttacker", transform.root, SendMessageOptions.DontRequireReceiver); //Tell the NPC whose attacking
 		}
 	}
 }

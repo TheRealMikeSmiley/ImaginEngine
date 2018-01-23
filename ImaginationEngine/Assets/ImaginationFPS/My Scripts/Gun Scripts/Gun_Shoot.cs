@@ -34,12 +34,10 @@ namespace ImaginationEngine {
 		void OpenFire() {
 			//Debug.Log ("OpenFire called");
 			if (Physics.Raycast (camTransform.TransformPoint (startPosition), camTransform.forward, out hit, range)) {
-				gunMaster.CallEventShotDefault (hit.point, hit.transform);
-
-				//Check if raycast has hit object with the enemy tag
-				if (hit.transform.CompareTag (GameManager_References._enemyTag)) {
-					//Debug.Log ("Shot Enemy"); //check if raycast is working
-					gunMaster.CallEventShotEnemy (hit.point, hit.transform);
+				if (hit.transform.GetComponent<NPC_TakeDamage> () != null) {
+					gunMaster.CallEventShotEnemy (hit, hit.transform);
+				} else {
+					gunMaster.CallEventShotDefault (hit, hit.transform);
 				}
 			}
 		}

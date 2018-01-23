@@ -21,10 +21,13 @@ namespace ImaginationEngine {
 		void OnEnable() {
 			SetInitialReferences ();
 			gunMaster.EventPlayerInput += PlayShootSound;
+			gunMaster.EventNpcInput += NpcPlayShootSound;
 		}
 
 		void OnDisable() {
 			gunMaster.EventPlayerInput += PlayShootSound;
+			gunMaster.EventNpcInput -= NpcPlayShootSound;
+
 		}
 
 		void SetInitialReferences() {
@@ -44,6 +47,11 @@ namespace ImaginationEngine {
 			if (reloadSound != null) {
 				AudioSource.PlayClipAtPoint (reloadSound, myTransform.position, reloadVolume);
 			}
+		}
+
+		//For NPC
+		void NpcPlayShootSound(float dummy) {
+			PlayShootSound ();
 		}
 	}
 }

@@ -17,10 +17,13 @@ namespace ImaginationEngine {
 		void OnEnable() {
 			SetInitialReferences ();
 			gunMaster.EventPlayerInput += PlayMuzzleFlash;
+			gunMaster.EventNpcInput += PlayMuzzleFlashForNpc;
 		}
 
 		void OnDisable() {
 			gunMaster.EventPlayerInput -= PlayMuzzleFlash;
+			gunMaster.EventNpcInput -= PlayMuzzleFlashForNpc;
+
 		}
 
 		void SetInitialReferences() {
@@ -29,6 +32,13 @@ namespace ImaginationEngine {
 
 		//check if muzzle is already flashing, if not - play
 		void PlayMuzzleFlash(){
+			if (muzzleFlash != null) {
+				muzzleFlash.Play ();
+			}
+		}
+
+		//For NPC
+		void PlayMuzzleFlashForNpc(float dummy) {
 			if (muzzleFlash != null) {
 				muzzleFlash.Play ();
 			}

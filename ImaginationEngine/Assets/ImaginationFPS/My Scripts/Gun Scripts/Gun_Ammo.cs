@@ -40,6 +40,10 @@ namespace ImaginationEngine {
 			if (ammoBox != null) {
 				StartCoroutine (UpdateAmmoUIWhenEnabling ());
 			}
+
+			if (gunMaster.isReloading) {
+				ResetGunReloading ();
+			}
 		}
 
 		void OnDisable() {

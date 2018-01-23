@@ -18,7 +18,7 @@ namespace ImaginationEngine {
 		public event GeneralEventHandler EventRequestGunReset;
 		public event GeneralEventHandler EventToggleBurstFire;
 
-		public delegate void GunHitEventHandler (Vector3 hitPosition, Transform hitTransform);
+		public delegate void GunHitEventHandler (RaycastHit hitPosition, Transform hitTransform);
 		public event GunHitEventHandler EventShotDefault;
 		public event GunHitEventHandler EventShotEnemy;
 
@@ -27,6 +27,9 @@ namespace ImaginationEngine {
 
 		public delegate void GunCrosshairEventHandler (float speed);
 		public event GunCrosshairEventHandler EventSpeedCaptured;
+
+		public delegate void GunNpcEventHandler(float rnd);
+		public event GunNpcEventHandler EventNpcInput;
 
 		public bool isGunLoaded;
 		public bool isReloading;
@@ -61,13 +64,13 @@ namespace ImaginationEngine {
 			}
 		}
 
-		public void CallEventShotDefault(Vector3 hPos, Transform hTransform){ //Default is anything tagged Default eg. Walls
+		public void CallEventShotDefault(RaycastHit hPos, Transform hTransform){ //Default is anything tagged Default eg. Walls
 			if (EventShotDefault != null) {
 				EventShotDefault (hPos, hTransform);
 			}
 		}
 
-		public void CallEventShotEnemy(Vector3 hPos, Transform hTransform){
+		public void CallEventShotEnemy(RaycastHit hPos, Transform hTransform){
 			if (EventShotEnemy != null) {
 				EventShotEnemy (hPos, hTransform);
 			}
@@ -82,6 +85,12 @@ namespace ImaginationEngine {
 		public void CallEventSpeedCaptured(float spd){
 			if (EventSpeedCaptured != null) {
 				EventSpeedCaptured (spd);
+			}
+		}
+
+		public void CallEventNpcInput(float rand) { //Called by NPCState_RangeAttack 
+			if (EventNpcInput != null) {
+				EventNpcInput (rand);
 			}
 		}
 	}

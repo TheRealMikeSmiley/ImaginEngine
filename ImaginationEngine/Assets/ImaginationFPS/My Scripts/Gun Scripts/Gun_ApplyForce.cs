@@ -31,7 +31,7 @@ namespace ImaginationEngine {
 			myTransform = transform;
 		}
 
-		void ApplyForce(Vector3 hitPosition, Transform hitTransform){
+		void ApplyForce(RaycastHit hitPosition, Transform hitTransform){
 			if (hitTransform.GetComponent<Rigidbody> () != null) {
 				hitTransform.GetComponent<Rigidbody> ().AddForce (myTransform.forward * forceToApply, ForceMode.Impulse);
 			}

@@ -20,6 +20,7 @@ namespace ImaginationEngine {
 			SetInitialReferences ();
 
 			if (itemMaster != null) {
+				ResetMelee ();
 				itemMaster.EventObjectThrow += ResetMelee;
 			}
 		}
