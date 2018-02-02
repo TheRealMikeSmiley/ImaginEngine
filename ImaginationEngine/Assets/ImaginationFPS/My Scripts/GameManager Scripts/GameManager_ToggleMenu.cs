@@ -55,7 +55,7 @@ namespace ImaginationEngine {
         }
 
 
-        void ToggleMenu() {
+       public void ToggleMenu() {
 			if (menu != null) { //make sure menu exists
 				menu.SetActive(!menu.activeSelf); //if deactivated it will be activated, and vice versa
 				gameManagerMaster.isMenuOn = !gameManagerMaster.isMenuOn;
