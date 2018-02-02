@@ -28,6 +28,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+        //Added varibal lookspeed to allow users to edit how fast they want to look around in the horizontal
+        [SerializeField] private float m_HorizontalLookSpeed = 1;
+        //Added varibal lookspeed to allow users to edit how fast they want to look around in the vertical
+        [SerializeField] private float m_VerticalLookSpeed = 1;
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -236,7 +240,28 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
+#if !MOBILE_INPUT
+
             m_MouseLook.LookRotation (transform, m_Camera.transform);
+#endif
+            Vector2 mouseInput = new Vector3(CrossPlatformInputManager.GetAxis("HorizontalLook"), CrossPlatformInputManager.GetAxis("VerticalLook"));
+            //Handles the rotation of the camera around the x axis to give the user a "Look around" feel
+
+            float camX = m_Camera.transform.localEulerAngles.x;
+
+            //Handles the angles of movement when looking around, it prevents us from getting stuck and also prevents us from looking down all the way around
+            if ((camX > 280 && camX <= 360) ||
+                (camX >= 0 && camX < 80) ||
+                (camX >= 80 && camX < 180 && mouseInput.y > 0) ||
+                (camX > 180 && camX <= 280 && mouseInput.y < 0))
+            {
+                m_Camera.transform.localEulerAngles += new Vector3(-mouseInput.y * m_VerticalLookSpeed, m_Camera.transform.localEulerAngles.y,
+                                                                     m_Camera.transform.localEulerAngles.z);
+            }
+
+            //m_YRotation = mouseInput.y;
+            transform.localEulerAngles += new Vector3(0, mouseInput.x * m_HorizontalLookSpeed, 0);
+
         }
 
 

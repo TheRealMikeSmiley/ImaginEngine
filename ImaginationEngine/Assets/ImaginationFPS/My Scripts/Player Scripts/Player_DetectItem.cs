@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine;
 
 namespace ImaginationEngine {
@@ -42,17 +43,24 @@ namespace ImaginationEngine {
 				itemInRange = false;
 			}
 		}
-
-		//
-		void CheckForItemPickupAttempt(){
+#if !MOBILE_INPUT
+        //
+        void CheckForItemPickupAttempt(){
 			if (Input.GetButtonDown (buttonPickup) && Time.timeScale > 0 && itemInRange && itemAvailableForPickup.root.tag != GameManager_References._playerTag) {
 				//Debug.Log ("Pickup Attempted"); //check for pickup, will add pickup event once item module complete
 				itemAvailableForPickup.GetComponent<Item_Master>().CallEventPickupAction(rayTransformPivot); //pickup event completed Oct 15 2017
 			}
 		}
-
-		// If an item is available to pick up, show label
-		void OnGUI(){
+#endif
+        void CheckForItemPickupAttempt()
+        {
+            if (CrossPlatformInputManager.GetButtonDown("Action") && Time.timeScale > 0 && itemInRange && itemAvailableForPickup.root.tag != GameManager_References._playerTag)
+            {
+                itemAvailableForPickup.GetComponent<Item_Master>().CallEventPickupAction(rayTransformPivot); //pickup event completed Oct 15 2017
+            }
+        }
+        // If an item is available to pick up, show label
+        void OnGUI(){
 			if (itemInRange && itemAvailableForPickup != null) {
 				GUI.Label(new Rect(Screen.width/2-labelWidth/2, Screen.height/2, labelWidth,labelHeight), itemAvailableForPickup.name);
 			}

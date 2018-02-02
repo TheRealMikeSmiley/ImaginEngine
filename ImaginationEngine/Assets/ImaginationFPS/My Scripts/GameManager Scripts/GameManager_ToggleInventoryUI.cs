@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine;
 
 namespace ImaginationEngine {
@@ -35,14 +36,20 @@ namespace ImaginationEngine {
 
 		//Checks for button press to toggle Inventory
 		void CheckForInventoryUIToggleRequest() {
-			//Check for button, if menu is already showing, inventory exists and there is not a game over
-			if (Input.GetButtonUp (toggleInventoryButton) && !gameManagerMaster.isMenuOn && !gameManagerMaster.isGameOver && hasInventory) {
+#if !MOBILE_INPUT         
+            //Check for button, if menu is already showing, inventory exists and there is not a game over
+            if (Input.GetButtonUp (toggleInventoryButton) && !gameManagerMaster.isMenuOn && !gameManagerMaster.isGameOver && hasInventory) {
 				ToggleInventoryUI ();
-			}
-		}
+            }
+#endif
+            if (CrossPlatformInputManager.GetButtonDown("Inventory") && !gameManagerMaster.isMenuOn && !gameManagerMaster.isGameOver && hasInventory)
+            {
+                ToggleInventoryUI();
+            }
+        }
 
-		//Locks cursor, pauses game
-		public void ToggleInventoryUI(){
+        //Locks cursor, pauses game
+        public void ToggleInventoryUI(){
 			if (inventoryUI != null) { //checks if assigned
 				inventoryUI.SetActive (!inventoryUI.activeSelf);
 				gameManagerMaster.isInventoryUIOn = !gameManagerMaster.isInventoryUIOn;

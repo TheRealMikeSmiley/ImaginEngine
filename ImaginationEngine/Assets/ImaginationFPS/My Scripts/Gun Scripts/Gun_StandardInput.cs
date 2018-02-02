@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine;
 
 /*
@@ -43,20 +44,40 @@ namespace ImaginationEngine {
 		void CheckIfWeaponShouldAttack() {
 			if (Time.time > nextAttack && Time.timeScale > 0 && myTransform.root.CompareTag (GameManager_References._playerTag)) { //check if weapon is on player 
 				if (isAutomatic && !isBurstFireActive) { //check if automatic, burst fire not enabled
-					if (Input.GetButton (attackButtonName)) { //can hold button down to keep shooting
+#if !MOBILE_INPUT
+                    if (Input.GetButton (attackButtonName)) { //can hold button down to keep shooting
 						//Debug.Log ("Full Auto");
 						AttemptAttack ();
 					}
-				} else if (isAutomatic && isBurstFireActive) { //check if automatic, and burst fire enabled
-					if (Input.GetButtonDown (attackButtonName)) { // must press button each time to shoot
+#endif
+                    if (CrossPlatformInputManager.GetButtonDown("Shoot"))
+                    { //can hold button down to keep shooting
+                      //Debug.Log ("Full Auto");
+                        AttemptAttack();
+                    }
+                } else if (isAutomatic && isBurstFireActive) { //check if automatic, and burst fire enabled
+#if !MOBILE_INPUT
+                    if (Input.GetButtonDown (attackButtonName)) { // must press button each time to shoot
 						//Debug.Log ("Burst");
 						StartCoroutine (RunBurstFire ());
 					}
-				} else if (!isAutomatic) { //check if not automatic
-					if (Input.GetButtonDown (attackButtonName)) { //must press button each time to shoot
+#endif
+                    if (CrossPlatformInputManager.GetButtonDown("Shoot"))
+                    { // must press button each time to shoot
+                      //Debug.Log ("Burst");
+                        StartCoroutine(RunBurstFire());
+                    }
+                } else if (!isAutomatic) { //check if not automatic
+#if !MOBILE_INPUT
+                    if (Input.GetButtonDown (attackButtonName)) { //must press button each time to shoot
 						AttemptAttack ();
 					}
-				}
+#endif
+                    if (CrossPlatformInputManager.GetButtonDown("Shoot"))
+                    { //must press button each time to shoot
+                        AttemptAttack();
+                    }
+                }
 			}
 		}
 
@@ -73,14 +94,16 @@ namespace ImaginationEngine {
 		}
 
 		//Check for reload button press
+        //For Mobile We will just reload when we are out of ammo <- will look at implementing this for the beta
 		void CheckForReloadRequest(){
 			if (Input.GetButtonDown (reloadButtonName) && Time.timeScale > 0 && myTransform.root.CompareTag (GameManager_References._playerTag)) {
 				gunMaster.CallEventRequestReload ();
 			}
 		}
 
-		//Check if burst fire button is pressed
-		void CheckForBurstFireToggle(){
+        //Check if burst fire button is pressed
+        //For Mobile We will just have it so we do not need to switch burst <- will look at implementing this for the beta
+        void CheckForBurstFireToggle(){
 			if (Input.GetButtonDown (burstFireButtonName) && Time.timeScale > 0 && myTransform.root.CompareTag (GameManager_References._playerTag)) {
 				//Debug.Log ("Burst Fire Toggled");
 				isBurstFireActive = !isBurstFireActive; 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine;
 
 namespace ImaginationEngine {
@@ -16,10 +17,15 @@ namespace ImaginationEngine {
 	
 		// Update is called once per frame
 		void Update () {
-			CheckForMenuToggleRequest ();
-		}
+#if !MOBILE_INPUT
+            CheckForMenuToggleRequest ();
+#endif
+            CheckForMobileMenuToggleRequest();
 
-		void OnEnable() {
+
+        }
+
+        void OnEnable() {
 			SetInitialReferences ();
 			gameManagerMaster.GameOverEvent += ToggleMenu; //if player is destroyed, bring up menu
 		}
@@ -31,15 +37,25 @@ namespace ImaginationEngine {
 		void SetInitialReferences() {
 			gameManagerMaster = GetComponent<GameManager_Master> ();
 		}
-
-		void CheckForMenuToggleRequest() {
+#if !MOBILE_INPUT
+        void CheckForMenuToggleRequest() {
 			//Check for button press, and make sure gameover and inventory screens are both off
 			if (Input.GetKeyUp (KeyCode.Escape) && !gameManagerMaster.isGameOver && !gameManagerMaster.isInventoryUIOn) {
 				ToggleMenu ();
 			}
 		}
+#endif
+        void CheckForMobileMenuToggleRequest()
+        {
+            //Check for button press, and make sure gameover and inventory screens are both off
+            if (CrossPlatformInputManager.GetButtonDown("Menu") && !gameManagerMaster.isGameOver && !gameManagerMaster.isInventoryUIOn)
+            {
+                ToggleMenu();
+            }
+        }
 
-		void ToggleMenu() {
+
+        void ToggleMenu() {
 			if (menu != null) { //make sure menu exists
 				menu.SetActive(!menu.activeSelf); //if deactivated it will be activated, and vice versa
 				gameManagerMaster.isMenuOn = !gameManagerMaster.isMenuOn;
