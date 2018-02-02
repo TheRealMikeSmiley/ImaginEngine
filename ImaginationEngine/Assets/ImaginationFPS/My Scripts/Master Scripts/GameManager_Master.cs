@@ -46,7 +46,7 @@ namespace ImaginationEngine {
 			}
 		}
 
-		public void CallEventGameOver() {
+        public void CallEventGameOver() {
 			if (GameOverEvent != null) {
 				if (!isGameOver) {
 					isGameOver = true;
